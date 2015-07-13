@@ -22,17 +22,17 @@
     return self;
 }
 
-- (Card *)cardInRow:(int)row column:(int)column {
-    return [[_rows objectAtIndex:row] objectAtIndex:column];
+- (Card *)cardAtLocation:(Location)location {
+    return [[_rows objectAtIndex:location.row] objectAtIndex:location.column];
 }
 
-- (void)placeCard:(Card *)card inRow:(int)row column:(int)column {
-    [[_rows objectAtIndex:row] setObject:card atIndex:column];
+- (void)placeCard:(Card *)card atLocation:(Location)location {
+    [[_rows objectAtIndex:location.row] setObject:card atIndex:location.column];
 }
 
-- (Card *)removeCardInRow:(int)row column:(int)column {
-    Card *card = [self cardInRow:row column:column];
-    [[_rows objectAtIndex:row] removeObjectAtIndex:column];
+- (Card *)removeCardAtLocation:(Location)location {
+    Card *card = [self cardAtLocation:location];
+    [[_rows objectAtIndex:location.row] removeObjectAtIndex:location.column];
     return card;
 }
 
