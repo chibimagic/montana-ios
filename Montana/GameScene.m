@@ -11,15 +11,12 @@
 @implementation GameScene
 
 -(void)didMoveToView:(SKView *)view {
-    /* Setup your scene here */
-    SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
-    
-    myLabel.text = @"Hello, World!";
-    myLabel.fontSize = 65;
-    myLabel.position = CGPointMake(CGRectGetMidX(self.frame),
-                                   CGRectGetMidY(self.frame));
-    
-    [self addChild:myLabel];
+    SKLabelNode *redealsRemainingTextLabel = [SKLabelNode labelNodeWithText:@"Redeals Remaining:"];
+    [redealsRemainingTextLabel setFontName:@"Arial Bold"];
+    [redealsRemainingTextLabel setHorizontalAlignmentMode:SKLabelHorizontalAlignmentModeRight];
+    CGPoint upperRightCorner = CGPointMake([self frame].size.width - 100, [self frame].size.height - 100);
+    [redealsRemainingTextLabel setPosition:upperRightCorner];
+    [self addChild:redealsRemainingTextLabel];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
