@@ -458,6 +458,7 @@
 				A22E261F1B5440ED00CD3FB8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A22E26201B5440ED00CD3FB8 /* Build configuration list for PBXNativeTarget "MontanaTests" */ = {
 			isa = XCConfigurationList;
@@ -466,6 +467,7 @@
 				A22E26221B5440ED00CD3FB8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
