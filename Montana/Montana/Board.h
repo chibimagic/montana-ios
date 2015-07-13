@@ -16,6 +16,7 @@
 
 - (instancetype)initWithEmptyBoard;
 - (Card *)cardAtLocation:(Location *)location;
+- (Location *)locationOfCard:(Card *)card;
 - (void)placeCard:(Card *)card atLocation:(Location *)location;
 - (Card *)removeCardAtLocation:(Location *)location;
 

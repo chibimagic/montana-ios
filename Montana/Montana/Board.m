@@ -8,6 +8,7 @@
 
 #import "Board.h"
 #import "Location.h"
+#import "Card.h"
 
 @implementation Board
 
@@ -25,6 +26,22 @@
 
 - (Card *)cardAtLocation:(Location *)location {
     return [[_rows objectAtIndex:[location row]] objectAtIndex:[location column]];
+}
+
+- (Location *)locationOfCard:(Card *)card {
+    __block Location *location;
+    [_rows enumerateObjectsUsingBlock:^(NSArray *row, NSUInteger rowIndex, BOOL *stop) {
+        [row enumerateObjectsUsingBlock:^(Card *boardCard, NSUInteger columnIndex, BOOL *stop) {
+            if ([card isEqual:boardCard]) {
+                location = [[Location alloc] initWithRow:rowIndex column:columnIndex];
+                *stop = YES;
+            }
+        }];
+        if (location) {
+            *stop = YES;
+        }
+    }];
+    return location;
 }
 
 - (void)placeCard:(Card *)card atLocation:(Location *)location {
