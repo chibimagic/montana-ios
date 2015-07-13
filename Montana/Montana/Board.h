@@ -8,19 +8,15 @@
 
 #import <Foundation/Foundation.h>
 @class Card;
-
-typedef struct {
-    int row;
-    int column;
-} Location;
+@class Location;
 
 @interface Board : NSObject
 
 @property NSArray *rows;
 
 - (instancetype)initWithEmptyBoard;
-- (Card *)cardAtLocation:(Location)location;
-- (void)placeCard:(Card *)card atLocation:(Location)location;
-- (Card *)removeCardAtLocation:(Location)location;
+- (Card *)cardAtLocation:(Location *)location;
+- (void)placeCard:(Card *)card atLocation:(Location *)location;
+- (Card *)removeCardAtLocation:(Location *)location;
 
 @end

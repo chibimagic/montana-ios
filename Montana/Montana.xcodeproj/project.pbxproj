@@ -20,6 +20,7 @@
 		A22E26281B54423600CD3FB8 /* Deck.m in Sources */ = {isa = PBXBuildFile; fileRef = A22E26271B54423600CD3FB8 /* Deck.m */; };
 		A22E262B1B54426800CD3FB8 /* Board.m in Sources */ = {isa = PBXBuildFile; fileRef = A22E262A1B54426800CD3FB8 /* Board.m */; };
 		A22E262E1B5442A600CD3FB8 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = A22E262D1B5442A600CD3FB8 /* Game.m */; };
+		A22E26311B545C9A00CD3FB8 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = A22E26301B545C9A00CD3FB8 /* Location.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,8 @@
 		A22E262A1B54426800CD3FB8 /* Board.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Board.m; sourceTree = "<group>"; };
 		A22E262C1B5442A600CD3FB8 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
 		A22E262D1B5442A600CD3FB8 /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Game.m; sourceTree = "<group>"; };
+		A22E262F1B545C9A00CD3FB8 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
+		A22E26301B545C9A00CD3FB8 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +105,8 @@
 				A22E26241B5441AF00CD3FB8 /* Card.m */,
 				A22E26261B54423600CD3FB8 /* Deck.h */,
 				A22E26271B54423600CD3FB8 /* Deck.m */,
+				A22E262F1B545C9A00CD3FB8 /* Location.h */,
+				A22E26301B545C9A00CD3FB8 /* Location.m */,
 				A22E26291B54426800CD3FB8 /* Board.h */,
 				A22E262A1B54426800CD3FB8 /* Board.m */,
 				A22E262C1B5442A600CD3FB8 /* Game.h */,
@@ -252,6 +257,7 @@
 				A22E26251B5441AF00CD3FB8 /* Card.m in Sources */,
 				A22E26061B5440ED00CD3FB8 /* GameViewController.m in Sources */,
 				A22E262E1B5442A600CD3FB8 /* Game.m in Sources */,
+				A22E26311B545C9A00CD3FB8 /* Location.m in Sources */,
 				A22E25FE1B5440ED00CD3FB8 /* AppDelegate.m in Sources */,
 				A22E26011B5440ED00CD3FB8 /* GameScene.m in Sources */,
 				A22E26281B54423600CD3FB8 /* Deck.m in Sources */,

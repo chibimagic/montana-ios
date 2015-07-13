@@ -7,6 +7,7 @@
 //
 
 #import "Board.h"
+#import "Location.h"
 
 @implementation Board
 
@@ -22,17 +23,17 @@
     return self;
 }
 
-- (Card *)cardAtLocation:(Location)location {
-    return [[_rows objectAtIndex:location.row] objectAtIndex:location.column];
+- (Card *)cardAtLocation:(Location *)location {
+    return [[_rows objectAtIndex:[location row]] objectAtIndex:[location column]];
 }
 
-- (void)placeCard:(Card *)card atLocation:(Location)location {
-    [[_rows objectAtIndex:location.row] setObject:card atIndex:location.column];
+- (void)placeCard:(Card *)card atLocation:(Location *)location {
+    [[_rows objectAtIndex:[location row]] setObject:card atIndex:[location column]];
 }
 
-- (Card *)removeCardAtLocation:(Location)location {
+- (Card *)removeCardAtLocation:(Location *)location {
     Card *card = [self cardAtLocation:location];
-    [[_rows objectAtIndex:location.row] removeObjectAtIndex:location.column];
+    [[_rows objectAtIndex:[location row]] removeObjectAtIndex:[location column]];
     return card;
 }
 
