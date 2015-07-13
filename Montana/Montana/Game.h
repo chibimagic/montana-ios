@@ -18,7 +18,7 @@
 + (instancetype)newGame;
 - (void)redeal;
 - (void)moveCard:(Card *)card;
-- (BOOL)anyMovesPossibke;
+- (BOOL)anyMovesPossible;
 - (NSArray *)possibleCardsForRow:(int)row column:(int)column;
 
 @end
