@@ -13,9 +13,9 @@
 
 @property NSArray *rows;
 
-+ (instancetype)newBoard;
+- (instancetype)initWithEmptyBoard;
 - (Card *)cardInRow:(int)row column:(int)column;
 - (void)placeCard:(Card *)card inRow:(int)row column:(int)column;
-- (void)removeCardInRow:(int)row column:(int)column;
+- (Card *)removeCardInRow:(int)row column:(int)column;
 
 @end

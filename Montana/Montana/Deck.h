@@ -7,13 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+@class Card;
 
 @interface Deck : NSObject
 
 @property NSMutableArray *cards;
 
-+ (instancetype)deckForNewGame;
+- (instancetype)initForNewGame;
 - (instancetype)initWithCards:(NSArray *)cards;
+- (Card *)drawCard;
 - (void)shuffle;
 
 @end

@@ -36,7 +36,7 @@ typedef enum : NSUInteger {
 @property Suit suit;
 @property Rank rank;
 
-+ (instancetype)cardWithSuit:(Suit)suit rank:(Rank)rank;
+- (instancetype)initWithSuit:(Suit)suit rank:(Rank)rank;
 - (BOOL)canBeFollowedBy:(Card *)card;
 - (Card *)followingCard;
 
