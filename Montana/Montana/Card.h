@@ -38,6 +38,7 @@ typedef enum : NSUInteger {
 
 - (instancetype)initWithSuit:(Suit)suit rank:(Rank)rank;
 - (BOOL)canBeFollowedBy:(Card *)card;
+- (Card *)precedingCard;
 - (Card *)followingCard;
 
 @end

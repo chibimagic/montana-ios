@@ -23,28 +23,19 @@
     return [[self followingCard] isEqual:card];
 }
 
-- (Card *)followingCard {
-    if (_rank == RankKing) {
+- (Card *)precedingCard {
+    if (_rank == RankAce || _rank == Rank2) {
         return nil;
     }
-    NSArray *rankOrder = @[
-                           @(RankAce),
-                           @(Rank2),
-                           @(Rank3),
-                           @(Rank4),
-                           @(Rank5),
-                           @(Rank6),
-                           @(Rank7),
-                           @(Rank8),
-                           @(Rank9),
-                           @(Rank10),
-                           @(RankJack),
-                           @(RankQueen),
-                           @(RankKing)
-                           ];
-    NSUInteger currentIndex = [rankOrder indexOfObject:@(_rank)];
-    NSNumber *nextRankBoxed = [rankOrder objectAtIndex:(currentIndex + 1)];
-    Rank nextRank = (Rank)[nextRankBoxed intValue];
+    Rank previousRank = _rank--;
+    return [[Card alloc] initWithSuit:_suit rank:previousRank];
+}
+
+- (Card *)followingCard {
+    if (_rank == RankAce || _rank == RankKing) {
+        return nil;
+    }
+    Rank nextRank = _rank++;
     return [[Card alloc] initWithSuit:_suit rank:nextRank];
 }
 
