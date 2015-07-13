@@ -16,6 +16,10 @@
 		A22E260B1B5440ED00CD3FB8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A22E260A1B5440ED00CD3FB8 /* Images.xcassets */; };
 		A22E260E1B5440ED00CD3FB8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A22E260C1B5440ED00CD3FB8 /* LaunchScreen.xib */; };
 		A22E261A1B5440ED00CD3FB8 /* MontanaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A22E26191B5440ED00CD3FB8 /* MontanaTests.m */; };
+		A22E26251B5441AF00CD3FB8 /* Card.m in Sources */ = {isa = PBXBuildFile; fileRef = A22E26241B5441AF00CD3FB8 /* Card.m */; };
+		A22E26281B54423600CD3FB8 /* Deck.m in Sources */ = {isa = PBXBuildFile; fileRef = A22E26271B54423600CD3FB8 /* Deck.m */; };
+		A22E262B1B54426800CD3FB8 /* Board.m in Sources */ = {isa = PBXBuildFile; fileRef = A22E262A1B54426800CD3FB8 /* Board.m */; };
+		A22E262E1B5442A600CD3FB8 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = A22E262D1B5442A600CD3FB8 /* Game.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +49,14 @@
 		A22E26131B5440ED00CD3FB8 /* MontanaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MontanaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A22E26181B5440ED00CD3FB8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A22E26191B5440ED00CD3FB8 /* MontanaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MontanaTests.m; sourceTree = "<group>"; };
+		A22E26231B5441AF00CD3FB8 /* Card.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Card.h; sourceTree = "<group>"; };
+		A22E26241B5441AF00CD3FB8 /* Card.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Card.m; sourceTree = "<group>"; };
+		A22E26261B54423600CD3FB8 /* Deck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Deck.h; sourceTree = "<group>"; };
+		A22E26271B54423600CD3FB8 /* Deck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Deck.m; sourceTree = "<group>"; };
+		A22E26291B54426800CD3FB8 /* Board.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Board.h; sourceTree = "<group>"; };
+		A22E262A1B54426800CD3FB8 /* Board.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Board.m; sourceTree = "<group>"; };
+		A22E262C1B5442A600CD3FB8 /* Game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game.h; sourceTree = "<group>"; };
+		A22E262D1B5442A600CD3FB8 /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Game.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +98,14 @@
 		A22E25F71B5440ED00CD3FB8 /* Montana */ = {
 			isa = PBXGroup;
 			children = (
+				A22E26231B5441AF00CD3FB8 /* Card.h */,
+				A22E26241B5441AF00CD3FB8 /* Card.m */,
+				A22E26261B54423600CD3FB8 /* Deck.h */,
+				A22E26271B54423600CD3FB8 /* Deck.m */,
+				A22E26291B54426800CD3FB8 /* Board.h */,
+				A22E262A1B54426800CD3FB8 /* Board.m */,
+				A22E262C1B5442A600CD3FB8 /* Game.h */,
+				A22E262D1B5442A600CD3FB8 /* Game.m */,
 				A22E25FC1B5440ED00CD3FB8 /* AppDelegate.h */,
 				A22E25FD1B5440ED00CD3FB8 /* AppDelegate.m */,
 				A22E25FF1B5440ED00CD3FB8 /* GameScene.h */,
@@ -228,9 +248,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A22E262B1B54426800CD3FB8 /* Board.m in Sources */,
+				A22E26251B5441AF00CD3FB8 /* Card.m in Sources */,
 				A22E26061B5440ED00CD3FB8 /* GameViewController.m in Sources */,
+				A22E262E1B5442A600CD3FB8 /* Game.m in Sources */,
 				A22E25FE1B5440ED00CD3FB8 /* AppDelegate.m in Sources */,
 				A22E26011B5440ED00CD3FB8 /* GameScene.m in Sources */,
+				A22E26281B54423600CD3FB8 /* Deck.m in Sources */,
 				A22E25FB1B5440ED00CD3FB8 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
