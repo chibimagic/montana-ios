@@ -7,7 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+@class Board;
+@class Card;
 
 @interface Game : NSObject
+
+@property int redealsRemaining;
+@property Board *board;
+
++ (instancetype)newGame;
+- (void)redeal;
+- (void)moveCard:(Card *)card;
+- (BOOL)anyMovesPossibke;
+- (NSArray *)possibleCardsForRow:(int)row column:(int)column;
 
 @end

@@ -10,4 +10,10 @@
 
 @interface Deck : NSObject
 
+@property NSMutableArray *cards;
+
++ (instancetype)deckForNewGame;
+- (instancetype)initWithCards:(NSArray *)cards;
+- (void)shuffle;
+
 @end

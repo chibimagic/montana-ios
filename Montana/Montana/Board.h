@@ -7,7 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+@class Card;
 
 @interface Board : NSObject
+
+@property NSArray *rows;
+
++ (instancetype)newBoard;
+- (Card *)cardInRow:(int)row column:(int)column;
+- (void)placeCard:(Card *)card inRow:(int)row column:(int)column;
+- (void)removeCardInRow:(int)row column:(int)column;
 
 @end
