@@ -19,5 +19,6 @@
 - (Location *)locationOfCard:(Card *)card;
 - (void)placeCard:(Card *)card atLocation:(Location *)location;
 - (Card *)removeCardAtLocation:(Location *)location;
+- (NSArray *)removeCardAndFollowingCardsAtLocation:(Location *)location;
 
 @end
