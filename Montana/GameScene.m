@@ -7,6 +7,15 @@
 //
 
 #import "GameScene.h"
+#import "Card.h"
+
+CGFloat const intercardSpacing = 5;
+
+@interface GameScene ()
+
+@property SKTexture *allCardsTexture;
+
+@end
 
 @implementation GameScene
 
@@ -18,6 +27,8 @@
     CGPoint upperRightCorner = CGPointMake([self frame].size.width - 20, [self frame].size.height - 15);
     [redealsRemainingTextLabel setPosition:upperRightCorner];
     [self addChild:redealsRemainingTextLabel];
+    
+    _allCardsTexture = [SKTexture textureWithImageNamed:@"Cards"];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -42,6 +53,30 @@
 
 -(void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */
+}
+
+- (SKTexture *)textureForCard:(Card *)card {
+    CGFloat cardUnitXOffset = [self textureUnitXOffsetForRank:[card rank]];
+    CGFloat cardUnitYOffset = [self textureUnitYOffsetForSuit:[card suit]];
+    CGRect cardTextureRect = CGRectMake(cardUnitXOffset, cardUnitYOffset, (CGFloat) 1 / 13, (CGFloat) 1 / 4);
+    return [SKTexture textureWithRect:cardTextureRect inTexture:_allCardsTexture];
+}
+
+- (CGFloat)textureUnitXOffsetForRank:(Rank)rank {
+    return (CGFloat) rank / 13;
+}
+
+- (CGFloat)textureUnitYOffsetForSuit:(Suit)suit {
+    switch (suit) {
+        case SuitClub:
+            return (CGFloat) 3 / 4;
+        case SuitDiamond:
+            return (CGFloat) 0 / 4;
+        case SuitHeart:
+            return (CGFloat) 1 / 4;
+        case SuitSpade:
+            return (CGFloat) 2 / 4;
+    }
 }
 
 @end
