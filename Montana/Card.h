@@ -40,5 +40,6 @@ typedef enum : NSUInteger {
 - (BOOL)canBeFollowedBy:(Card *)card;
 - (Card *)precedingCard;
 - (Card *)followingCard;
+- (NSString *)compactDescription;
 
 @end

@@ -19,4 +19,8 @@
     return self;
 }
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"row %d, column %d", _row, _column];
+}
+
 @end

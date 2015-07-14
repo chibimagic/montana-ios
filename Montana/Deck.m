@@ -62,4 +62,8 @@
     _cards = shuffledCards;
 }
 
+- (NSString *)description {
+    return [_cards description];
+}
+
 @end

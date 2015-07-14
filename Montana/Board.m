@@ -73,4 +73,18 @@
     return cards;
 }
 
+- (NSString *)description {
+    NSMutableString *description = [NSMutableString string];
+    for (int row = 0; row < 4; row++) {
+        for (int column = 0; column < 13; column++) {
+            Location *location = [[Location alloc] initWithRow:row column:column];
+            id object = [self cardAtLocation:location];
+            NSString *locationDescription = [object isKindOfClass:[Card class]] ? [object compactDescription] : @" ⬜️";
+            [description appendString:[NSString stringWithFormat:@"[%@]", locationDescription]];
+        }
+        [description appendString:@"\n"];
+    }
+    return description;
+}
+
 @end

@@ -39,6 +39,33 @@
     return [[Card alloc] initWithSuit:_suit rank:nextRank];
 }
 
+- (NSString *)compactDescription {
+    NSDictionary *suitNames = @{
+                               @(SuitClub) : @"♣️",
+                               @(SuitDiamond) : @"♦️",
+                               @(SuitHeart) : @"♥️",
+                               @(SuitSpade) : @"♠️"
+                               };
+    NSDictionary *rankNames = @{
+                               @(RankAce) : @"A",
+                               @(Rank2) : @"2",
+                               @(Rank3) : @"3",
+                               @(Rank4) : @"4",
+                               @(Rank5) : @"5",
+                               @(Rank6) : @"6",
+                               @(Rank7) : @"7",
+                               @(Rank8) : @"8",
+                               @(Rank9) : @"9",
+                               @(Rank10) : @"0",
+                               @(RankJack) : @"J",
+                               @(RankQueen) : @"Q",
+                               @(RankKing) : @"K",
+                               };
+    NSString *suitName = [suitNames objectForKey:@(_suit)];
+    NSString *rankName = [rankNames objectForKey:@(_rank)];
+    return [NSString stringWithFormat: @"%@%@", rankName, suitName];
+}
+
 - (BOOL)isEqual:(id)object {
     if (self == object) {
         return YES;
@@ -51,6 +78,33 @@
 
 - (BOOL)isEqualToCard:(Card *)card {
     return _suit == [card suit] && _rank == [card rank];
+}
+
+- (NSString *)description {
+    NSDictionary *suitNames = @{
+                               @(SuitClub) : @"Clubs",
+                               @(SuitDiamond) : @"Diamonds",
+                               @(SuitHeart) : @"Hearts",
+                               @(SuitSpade) : @"Spades"
+                               };
+    NSDictionary *rankNames = @{
+                               @(RankAce) : @"Ace",
+                               @(Rank2) : @"2",
+                               @(Rank3) : @"3",
+                               @(Rank4) : @"4",
+                               @(Rank5) : @"5",
+                               @(Rank6) : @"6",
+                               @(Rank7) : @"7",
+                               @(Rank8) : @"8",
+                               @(Rank9) : @"9",
+                               @(Rank10) : @"10",
+                               @(RankJack) : @"Jack",
+                               @(RankQueen) : @"Queen",
+                               @(RankKing) : @"King",
+                               };
+    NSString *suitName = [suitNames objectForKey:@(_suit)];
+    NSString *rankName = [rankNames objectForKey:@(_rank)];
+    return [NSString stringWithFormat: @"%@ of %@", rankName, suitName];
 }
 
 @end
