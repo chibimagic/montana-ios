@@ -17,22 +17,31 @@
     if (self) {
         NSMutableArray *rows = [NSMutableArray array];
         for (int rowIndex = 0; rowIndex < 4; rowIndex++) {
-            NSMutableArray *row = [NSMutableArray arrayWithCapacity:13];
+            NSMutableArray *row = [NSMutableArray array];
+            for (int columnIndex = 0; columnIndex < 13; columnIndex++) {
+                [row addObject:[NSNull null]];
+            }
             [rows addObject:row];
         }
+        _rows = rows;
     }
     return self;
 }
 
 - (Card *)cardAtLocation:(Location *)location {
-    return [[_rows objectAtIndex:[location row]] objectAtIndex:[location column]];
+    id object = [[_rows objectAtIndex:[location row]] objectAtIndex:[location column]];
+    if ([object isKindOfClass:[Card class]]) {
+        return object;
+    } else {
+        return nil;
+    }
 }
 
 - (Location *)locationOfCard:(Card *)card {
     __block Location *location;
     [_rows enumerateObjectsUsingBlock:^(NSArray *row, NSUInteger rowIndex, BOOL *stop) {
-        [row enumerateObjectsUsingBlock:^(Card *boardCard, NSUInteger columnIndex, BOOL *stop) {
-            if ([card isEqual:boardCard]) {
+        [row enumerateObjectsUsingBlock:^(id object, NSUInteger columnIndex, BOOL *stop) {
+            if ([card isEqual:object]) {
                 location = [[Location alloc] initWithRow:rowIndex column:columnIndex];
                 *stop = YES;
             }
@@ -50,7 +59,7 @@
 
 - (Card *)removeCardAtLocation:(Location *)location {
     Card *card = [self cardAtLocation:location];
-    [[_rows objectAtIndex:[location row]] removeObjectAtIndex:[location column]];
+    [[_rows objectAtIndex:[location row]] setObject:[NSNull null] atIndex:[location column]];
     return card;
 }
 
