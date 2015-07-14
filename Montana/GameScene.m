@@ -10,6 +10,7 @@
 #import "Card.h"
 #import "Location.h"
 #import "Board.h"
+#import "Game.h"
 
 CGFloat const intercardSpacing = 5;
 
@@ -33,7 +34,7 @@ CGFloat const intercardSpacing = 5;
     [redealsRemainingTextLabel setPosition:textLabelPosition];
     [self addChild:redealsRemainingTextLabel];
     
-    SKLabelNode *redealsRemainingCountLabel = [SKLabelNode labelNodeWithText:[NSString stringWithFormat:@"%d", _redealsRemaining]];
+    SKLabelNode *redealsRemainingCountLabel = [SKLabelNode labelNodeWithText:[NSString stringWithFormat:@"%d", [_game redealsRemaining]]];
     [redealsRemainingCountLabel setFontName:@"Arial Bold"];
     [redealsRemainingCountLabel setFontSize:12];
     CGPoint countLabelPosition = CGPointMake([self frame].size.width - 15, [self frame].size.height - 15);
@@ -63,7 +64,7 @@ CGFloat const intercardSpacing = 5;
     for (int row = 0; row < 4; row++) {
         for (int column = 0; column < 13; column++) {
             Location *location = [[Location alloc] initWithRow:row column:column];
-            id object = [_board cardAtLocation:location];
+            id object = [[_game board] cardAtLocation:location];
             if ([object isKindOfClass:[Card class]]) {
                 [self displayCard:object atLocation:location];
             } else {

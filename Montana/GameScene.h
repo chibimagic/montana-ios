@@ -7,11 +7,10 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
-@class Board;
+@class Game;
 
 @interface GameScene : SKScene
 
-@property Board *board;
-@property int redealsRemaining;
+@property Game *game;
 
 @end
