@@ -13,8 +13,9 @@
 -(void)didMoveToView:(SKView *)view {
     SKLabelNode *redealsRemainingTextLabel = [SKLabelNode labelNodeWithText:@"Redeals Remaining:"];
     [redealsRemainingTextLabel setFontName:@"Arial Bold"];
+    [redealsRemainingTextLabel setFontSize:12];
     [redealsRemainingTextLabel setHorizontalAlignmentMode:SKLabelHorizontalAlignmentModeRight];
-    CGPoint upperRightCorner = CGPointMake([self frame].size.width - 100, [self frame].size.height - 100);
+    CGPoint upperRightCorner = CGPointMake([self frame].size.width - 20, [self frame].size.height - 15);
     [redealsRemainingTextLabel setPosition:upperRightCorner];
     [self addChild:redealsRemainingTextLabel];
 }
