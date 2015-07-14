@@ -18,6 +18,7 @@ CGFloat const intercardSpacing = 5;
 @property SKTexture *allCardsTexture;
 @property CGSize cardSize;
 @property CGPoint playingAreaBottomLeft;
+@property UIBezierPath *placeholderPath;
 
 @end
 
@@ -52,12 +53,21 @@ CGFloat const intercardSpacing = 5;
     CGFloat playingAreaBottom = (screenSize.height - playingAreaHeight) / 2;
     _playingAreaBottomLeft = CGPointMake(playingAreaLeft, playingAreaBottom);
     
+    _placeholderPath = [[UIBezierPath alloc] init];
+    [_placeholderPath moveToPoint:CGPointMake(0, 0)];
+    [_placeholderPath addLineToPoint:CGPointMake(_cardSize.width, 0)];
+    [_placeholderPath addLineToPoint:CGPointMake(_cardSize.width, _cardSize.height)];
+    [_placeholderPath addLineToPoint:CGPointMake(0, _cardSize.height)];
+    [_placeholderPath addLineToPoint:CGPointMake(0, 0)];
+    
     for (int row = 0; row < 4; row++) {
         for (int column = 0; column < 13; column++) {
             Location *location = [[Location alloc] initWithRow:row column:column];
             id object = [_board cardAtLocation:location];
             if ([object isKindOfClass:[Card class]]) {
                 [self displayCard:object atLocation:location];
+            } else {
+                [self displayBlankSpaceAtLocation:location];
             }
         }
     }
@@ -124,6 +134,14 @@ CGFloat const intercardSpacing = 5;
     CGFloat x = _playingAreaBottomLeft.x + ([location column] * _cardSize.width) + ([location column] * intercardSpacing);
     CGFloat y = _playingAreaBottomLeft.y + ((3 - [location row]) * _cardSize.height) + ((3 - [location row]) * intercardSpacing);
     return CGPointMake(x, y);
+}
+
+- (void)displayBlankSpaceAtLocation:(Location *)location {
+    CGPoint position = [self positionForLocation:location];
+    SKShapeNode *blankNode = [SKShapeNode node];
+    [blankNode setPath:[_placeholderPath CGPath]];
+    [blankNode setPosition:position];
+    [self addChild:blankNode];
 }
 
 @end
