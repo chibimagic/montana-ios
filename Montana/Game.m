@@ -21,6 +21,7 @@
         _board = [[Board alloc] initWithEmptyBoard];
         Deck *deck = [[Deck alloc] initForNewGame];
         [self placeCards:deck];
+        [self removeAces];
     }
     return self;
 }
@@ -29,6 +30,7 @@
     Deck *deck = [self removeIncorrectCards];
     [deck shuffle];
     [self placeCards:deck];
+    [self removeAces];
     _redealsRemaining--;
 }
 
@@ -123,6 +125,18 @@
             }
             Card *card = [deck drawCard];
             [_board placeCard:card atLocation:location];
+        }
+    }
+}
+
+- (void)removeAces {
+    for (int row = 0; row < 4; row++) {
+        for (int column = 0; column < 13; column++) {
+            Location *location = [[Location alloc] initWithRow:row column:column];
+            Card *card = [_board cardAtLocation:location];
+            if ([card rank] == RankAce) {
+                [_board removeCardAtLocation:location];
+            }
         }
     }
 }
