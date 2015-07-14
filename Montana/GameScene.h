@@ -7,7 +7,10 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+@class Board;
 
 @interface GameScene : SKScene
+
+@property Board *board;
 
 @end

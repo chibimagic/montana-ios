@@ -9,6 +9,7 @@
 #import "GameScene.h"
 #import "Card.h"
 #import "Location.h"
+#import "Board.h"
 
 CGFloat const intercardSpacing = 5;
 
@@ -43,6 +44,16 @@ CGFloat const intercardSpacing = 5;
     CGFloat playingAreaHeight = (4 * cardHeight) + (3 * intercardSpacing);
     CGFloat playingAreaBottom = (screenSize.height - playingAreaHeight) / 2;
     _playingAreaBottomLeft = CGPointMake(playingAreaLeft, playingAreaBottom);
+    
+    for (int row = 0; row < 4; row++) {
+        for (int column = 0; column < 13; column++) {
+            Location *location = [[Location alloc] initWithRow:row column:column];
+            id object = [_board cardAtLocation:location];
+            if ([object isKindOfClass:[Card class]]) {
+                [self displayCard:object atLocation:location];
+            }
+        }
+    }
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -67,6 +78,15 @@ CGFloat const intercardSpacing = 5;
 
 -(void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */
+}
+
+- (void)displayCard:(Card *)card atLocation:(Location *)location {
+    SKTexture *cardTexture = [self textureForCard:card];
+    CGPoint position = [self positionForLocation:location];
+    SKSpriteNode *cardNode = [SKSpriteNode spriteNodeWithTexture:cardTexture size:_cardSize];
+    [cardNode setAnchorPoint:CGPointMake(0, 0)];
+    [cardNode setPosition:position];
+    [self addChild:cardNode];
 }
 
 - (SKTexture *)textureForCard:(Card *)card {

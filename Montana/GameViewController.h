@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <SpriteKit/SpriteKit.h>
+@class Game;
 
 @interface GameViewController : UIViewController
+
+@property Game *game;
 
 @end
