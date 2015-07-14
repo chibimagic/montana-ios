@@ -8,12 +8,15 @@
 
 #import "GameScene.h"
 #import "Card.h"
+#import "Location.h"
 
 CGFloat const intercardSpacing = 5;
 
 @interface GameScene ()
 
 @property SKTexture *allCardsTexture;
+@property CGSize cardSize;
+@property CGPoint playingAreaBottomLeft;
 
 @end
 
@@ -29,6 +32,17 @@ CGFloat const intercardSpacing = 5;
     [self addChild:redealsRemainingTextLabel];
     
     _allCardsTexture = [SKTexture textureWithImageNamed:@"Cards"];
+    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+    //    CGFloat cardWidthToHeightRatio = 2.5 / 3.5; // Standard poker dimensions;
+    CGFloat cardWidthToHeightRatio = ([_allCardsTexture size].width / 13) / ([_allCardsTexture size].height / 4); // Based on image asset
+    CGFloat cardWidth = (screenSize.width - (14 * intercardSpacing)) / 13;
+    CGFloat cardHeight = cardWidth / cardWidthToHeightRatio;
+    _cardSize = CGSizeMake(cardWidth, cardHeight);
+    
+    CGFloat playingAreaLeft = intercardSpacing;
+    CGFloat playingAreaHeight = (4 * cardHeight) + (3 * intercardSpacing);
+    CGFloat playingAreaBottom = (screenSize.height - playingAreaHeight) / 2;
+    _playingAreaBottomLeft = CGPointMake(playingAreaLeft, playingAreaBottom);
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -77,6 +91,12 @@ CGFloat const intercardSpacing = 5;
         case SuitSpade:
             return (CGFloat) 2 / 4;
     }
+}
+
+- (CGPoint)positionForLocation:(Location *)location {
+    CGFloat x = _playingAreaBottomLeft.x + ([location column] * _cardSize.width) + ([location column] * intercardSpacing);
+    CGFloat y = _playingAreaBottomLeft.y + ((3 - [location row]) * _cardSize.height) + ((3 - [location row]) * intercardSpacing);
+    return CGPointMake(x, y);
 }
 
 @end
