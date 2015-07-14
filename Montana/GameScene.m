@@ -28,9 +28,16 @@ CGFloat const intercardSpacing = 5;
     [redealsRemainingTextLabel setFontName:@"Arial Bold"];
     [redealsRemainingTextLabel setFontSize:12];
     [redealsRemainingTextLabel setHorizontalAlignmentMode:SKLabelHorizontalAlignmentModeRight];
-    CGPoint upperRightCorner = CGPointMake([self frame].size.width - 20, [self frame].size.height - 15);
-    [redealsRemainingTextLabel setPosition:upperRightCorner];
+    CGPoint textLabelPosition = CGPointMake([self frame].size.width - 20, [self frame].size.height - 15);
+    [redealsRemainingTextLabel setPosition:textLabelPosition];
     [self addChild:redealsRemainingTextLabel];
+    
+    SKLabelNode *redealsRemainingCountLabel = [SKLabelNode labelNodeWithText:[NSString stringWithFormat:@"%d", _redealsRemaining]];
+    [redealsRemainingCountLabel setFontName:@"Arial Bold"];
+    [redealsRemainingCountLabel setFontSize:12];
+    CGPoint countLabelPosition = CGPointMake([self frame].size.width - 15, [self frame].size.height - 15);
+    [redealsRemainingCountLabel setPosition:countLabelPosition];
+    [self addChild:redealsRemainingCountLabel];
     
     _allCardsTexture = [SKTexture textureWithImageNamed:@"Cards"];
     CGSize screenSize = [[UIScreen mainScreen] bounds].size;

@@ -12,5 +12,6 @@
 @interface GameScene : SKScene
 
 @property Board *board;
+@property int redealsRemaining;
 
 @end
