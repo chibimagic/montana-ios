@@ -20,6 +20,7 @@ CGFloat const intercardSpacing = 5;
 @property CGSize cardSize;
 @property CGPoint playingAreaBottomLeft;
 @property UIBezierPath *placeholderPath;
+@property UIBezierPath *noMovePath;
 
 @end
 
@@ -54,12 +55,21 @@ CGFloat const intercardSpacing = 5;
     CGFloat playingAreaBottom = (screenSize.height - playingAreaHeight) / 2;
     _playingAreaBottomLeft = CGPointMake(playingAreaLeft, playingAreaBottom);
     
+    CGPoint topLeft = CGPointMake(0, _cardSize.height);
+    CGPoint topRight = CGPointMake(_cardSize.width, _cardSize.height);
+    CGPoint bottomLeft = CGPointMake(0, 0);
+    CGPoint bottomRight = CGPointMake(_cardSize.width, 0);
     _placeholderPath = [[UIBezierPath alloc] init];
-    [_placeholderPath moveToPoint:CGPointMake(0, 0)];
-    [_placeholderPath addLineToPoint:CGPointMake(_cardSize.width, 0)];
-    [_placeholderPath addLineToPoint:CGPointMake(_cardSize.width, _cardSize.height)];
-    [_placeholderPath addLineToPoint:CGPointMake(0, _cardSize.height)];
-    [_placeholderPath addLineToPoint:CGPointMake(0, 0)];
+    [_placeholderPath moveToPoint:topLeft];
+    [_placeholderPath addLineToPoint:topRight];
+    [_placeholderPath addLineToPoint:bottomRight];
+    [_placeholderPath addLineToPoint:bottomLeft];
+    [_placeholderPath addLineToPoint:topLeft];
+    
+    _noMovePath = [_placeholderPath copy];
+    [_noMovePath addLineToPoint:bottomRight];
+    [_noMovePath moveToPoint:topRight];
+    [_noMovePath addLineToPoint:bottomLeft];
     
     for (int row = 0; row < 4; row++) {
         for (int column = 0; column < 13; column++) {
@@ -67,8 +77,10 @@ CGFloat const intercardSpacing = 5;
             id object = [[_game board] cardAtLocation:location];
             if ([object isKindOfClass:[Card class]]) {
                 [self displayCard:object atLocation:location];
-            } else {
+            } else if ([[_game possibleCardsForLocation:location] count] >= 1) {
                 [self displayBlankSpaceAtLocation:location];
+            } else {
+                [self displayNoMoveSpaceAtLocation:location];
             }
         }
     }
@@ -143,6 +155,14 @@ CGFloat const intercardSpacing = 5;
     [blankNode setPath:[_placeholderPath CGPath]];
     [blankNode setPosition:position];
     [self addChild:blankNode];
+}
+
+- (void)displayNoMoveSpaceAtLocation:(Location *)location {
+    CGPoint position = [self positionForLocation:location];
+    SKShapeNode *noMoveNode = [SKShapeNode node];
+    [noMoveNode setPath:[_noMovePath CGPath]];
+    [noMoveNode setPosition:position];
+    [self addChild:noMoveNode];
 }
 
 @end
