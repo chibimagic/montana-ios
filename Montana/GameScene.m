@@ -11,16 +11,15 @@
 #import "Location.h"
 #import "Board.h"
 #import "Game.h"
+#import "CardNode.h"
+#import "PlaceholderNode.h"
 
 CGFloat const intercardSpacing = 5;
 
 @interface GameScene ()
 
-@property SKTexture *allCardsTexture;
 @property CGSize cardSize;
 @property CGPoint playingAreaBottomLeft;
-@property UIBezierPath *placeholderPath;
-@property UIBezierPath *noMovePath;
 
 @end
 
@@ -42,10 +41,8 @@ CGFloat const intercardSpacing = 5;
     [redealsRemainingCountLabel setPosition:countLabelPosition];
     [self addChild:redealsRemainingCountLabel];
     
-    _allCardsTexture = [SKTexture textureWithImageNamed:@"Cards"];
     CGSize screenSize = [[UIScreen mainScreen] bounds].size;
-    //    CGFloat cardWidthToHeightRatio = 2.5 / 3.5; // Standard poker dimensions;
-    CGFloat cardWidthToHeightRatio = ([_allCardsTexture size].width / 13) / ([_allCardsTexture size].height / 4); // Based on image asset
+    CGFloat cardWidthToHeightRatio = [CardNode widthToHeightRatio];
     CGFloat cardWidth = (screenSize.width - (14 * intercardSpacing)) / 13;
     CGFloat cardHeight = cardWidth / cardWidthToHeightRatio;
     _cardSize = CGSizeMake(cardWidth, cardHeight);
@@ -54,22 +51,6 @@ CGFloat const intercardSpacing = 5;
     CGFloat playingAreaHeight = (4 * cardHeight) + (3 * intercardSpacing);
     CGFloat playingAreaBottom = (screenSize.height - playingAreaHeight) / 2;
     _playingAreaBottomLeft = CGPointMake(playingAreaLeft, playingAreaBottom);
-    
-    CGPoint topLeft = CGPointMake(0, _cardSize.height);
-    CGPoint topRight = CGPointMake(_cardSize.width, _cardSize.height);
-    CGPoint bottomLeft = CGPointMake(0, 0);
-    CGPoint bottomRight = CGPointMake(_cardSize.width, 0);
-    _placeholderPath = [[UIBezierPath alloc] init];
-    [_placeholderPath moveToPoint:topLeft];
-    [_placeholderPath addLineToPoint:topRight];
-    [_placeholderPath addLineToPoint:bottomRight];
-    [_placeholderPath addLineToPoint:bottomLeft];
-    [_placeholderPath addLineToPoint:topLeft];
-    
-    _noMovePath = [_placeholderPath copy];
-    [_noMovePath addLineToPoint:bottomRight];
-    [_noMovePath moveToPoint:topRight];
-    [_noMovePath addLineToPoint:bottomLeft];
     
     for (int row = 0; row < 4; row++) {
         for (int column = 0; column < 13; column++) {
@@ -111,36 +92,10 @@ CGFloat const intercardSpacing = 5;
 }
 
 - (void)displayCard:(Card *)card atLocation:(Location *)location {
-    SKTexture *cardTexture = [self textureForCard:card];
     CGPoint position = [self positionForLocation:location];
-    SKSpriteNode *cardNode = [SKSpriteNode spriteNodeWithTexture:cardTexture size:_cardSize];
-    [cardNode setAnchorPoint:CGPointMake(0, 0)];
+    CardNode *cardNode = [[CardNode alloc] initWithSize:_cardSize card:card location:location];
     [cardNode setPosition:position];
     [self addChild:cardNode];
-}
-
-- (SKTexture *)textureForCard:(Card *)card {
-    CGFloat cardUnitXOffset = [self textureUnitXOffsetForRank:[card rank]];
-    CGFloat cardUnitYOffset = [self textureUnitYOffsetForSuit:[card suit]];
-    CGRect cardTextureRect = CGRectMake(cardUnitXOffset, cardUnitYOffset, (CGFloat) 1 / 13, (CGFloat) 1 / 4);
-    return [SKTexture textureWithRect:cardTextureRect inTexture:_allCardsTexture];
-}
-
-- (CGFloat)textureUnitXOffsetForRank:(Rank)rank {
-    return (CGFloat) rank / 13;
-}
-
-- (CGFloat)textureUnitYOffsetForSuit:(Suit)suit {
-    switch (suit) {
-        case SuitClub:
-            return (CGFloat) 3 / 4;
-        case SuitDiamond:
-            return (CGFloat) 0 / 4;
-        case SuitHeart:
-            return (CGFloat) 1 / 4;
-        case SuitSpade:
-            return (CGFloat) 2 / 4;
-    }
 }
 
 - (CGPoint)positionForLocation:(Location *)location {
@@ -151,16 +106,14 @@ CGFloat const intercardSpacing = 5;
 
 - (void)displayBlankSpaceAtLocation:(Location *)location {
     CGPoint position = [self positionForLocation:location];
-    SKShapeNode *blankNode = [SKShapeNode node];
-    [blankNode setPath:[_placeholderPath CGPath]];
-    [blankNode setPosition:position];
-    [self addChild:blankNode];
+    PlaceholderNode *placeholderNode = [[PlaceholderNode alloc] initNormalWithSize:_cardSize location:location];
+    [placeholderNode setPosition:position];
+    [self addChild:placeholderNode];
 }
 
 - (void)displayNoMoveSpaceAtLocation:(Location *)location {
     CGPoint position = [self positionForLocation:location];
-    SKShapeNode *noMoveNode = [SKShapeNode node];
-    [noMoveNode setPath:[_noMovePath CGPath]];
+    PlaceholderNode *noMoveNode = [[PlaceholderNode alloc] initNoMovesWithSize:_cardSize location:location];
     [noMoveNode setPosition:position];
     [self addChild:noMoveNode];
 }

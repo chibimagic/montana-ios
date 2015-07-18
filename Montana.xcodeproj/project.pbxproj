@@ -21,6 +21,8 @@
 		A22E262B1B54426800CD3FB8 /* Board.m in Sources */ = {isa = PBXBuildFile; fileRef = A22E262A1B54426800CD3FB8 /* Board.m */; };
 		A22E262E1B5442A600CD3FB8 /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = A22E262D1B5442A600CD3FB8 /* Game.m */; };
 		A22E26311B545C9A00CD3FB8 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = A22E26301B545C9A00CD3FB8 /* Location.m */; };
+		A29051391B5ABAE0008FCFAA /* CardNode.m in Sources */ = {isa = PBXBuildFile; fileRef = A29051381B5ABAE0008FCFAA /* CardNode.m */; };
+		A290513F1B5ABB1C008FCFAA /* PlaceholderNode.m in Sources */ = {isa = PBXBuildFile; fileRef = A290513E1B5ABB1C008FCFAA /* PlaceholderNode.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,10 @@
 		A22E262D1B5442A600CD3FB8 /* Game.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Game.m; sourceTree = "<group>"; };
 		A22E262F1B545C9A00CD3FB8 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
 		A22E26301B545C9A00CD3FB8 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
+		A29051371B5ABAE0008FCFAA /* CardNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardNode.h; sourceTree = "<group>"; };
+		A29051381B5ABAE0008FCFAA /* CardNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardNode.m; sourceTree = "<group>"; };
+		A290513D1B5ABB1C008FCFAA /* PlaceholderNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceholderNode.h; sourceTree = "<group>"; };
+		A290513E1B5ABB1C008FCFAA /* PlaceholderNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceholderNode.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +121,10 @@
 				A22E25FD1B5440ED00CD3FB8 /* AppDelegate.m */,
 				A22E25FF1B5440ED00CD3FB8 /* GameScene.h */,
 				A22E26001B5440ED00CD3FB8 /* GameScene.m */,
+				A29051371B5ABAE0008FCFAA /* CardNode.h */,
+				A29051381B5ABAE0008FCFAA /* CardNode.m */,
+				A290513D1B5ABB1C008FCFAA /* PlaceholderNode.h */,
+				A290513E1B5ABB1C008FCFAA /* PlaceholderNode.m */,
 				A22E26021B5440ED00CD3FB8 /* GameScene.sks */,
 				A22E26041B5440ED00CD3FB8 /* GameViewController.h */,
 				A22E26051B5440ED00CD3FB8 /* GameViewController.m */,
@@ -253,6 +263,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A290513F1B5ABB1C008FCFAA /* PlaceholderNode.m in Sources */,
 				A22E262B1B54426800CD3FB8 /* Board.m in Sources */,
 				A22E26251B5441AF00CD3FB8 /* Card.m in Sources */,
 				A22E26061B5440ED00CD3FB8 /* GameViewController.m in Sources */,
@@ -260,6 +271,7 @@
 				A22E26311B545C9A00CD3FB8 /* Location.m in Sources */,
 				A22E25FE1B5440ED00CD3FB8 /* AppDelegate.m in Sources */,
 				A22E26011B5440ED00CD3FB8 /* GameScene.m in Sources */,
+				A29051391B5ABAE0008FCFAA /* CardNode.m in Sources */,
 				A22E26281B54423600CD3FB8 /* Deck.m in Sources */,
 				A22E25FB1B5440ED00CD3FB8 /* main.m in Sources */,
 			);
