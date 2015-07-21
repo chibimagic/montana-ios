@@ -63,7 +63,12 @@
                                ];
     } else {
         Card *precedingCard = [card precedingCard];
-        potentialLocations = @[[_board locationOfCard:precedingCard]];
+        Location *location = [[_board locationOfCard:precedingCard] followingLocation];
+        if (location) {
+            potentialLocations = @[location];
+        } else {
+            potentialLocations = @[];
+        }
     }
     NSMutableArray *availableLocations = [NSMutableArray array];
     [potentialLocations enumerateObjectsUsingBlock:^(Location *location, NSUInteger idx, BOOL *stop) {
@@ -87,7 +92,7 @@
                           ];
         return twos;
     }
-    Location *preceedingLocation = [[Location alloc] initWithRow:[location row] column:([location column] - 1)];
+    Location *preceedingLocation = [location precedingLocation];
     Card *card = [[_board cardAtLocation:preceedingLocation] followingCard];
     if (!card) {
         return @[];
