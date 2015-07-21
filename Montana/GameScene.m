@@ -164,6 +164,11 @@ CGFloat const intercardSpacing = 5;
             [self drawObjectForLocation:location];
         }
     }
+    if ([_game redealsRemaining] == 0) {
+        [self enumerateChildNodesWithName:@"Redeal" usingBlock:^(SKNode *node, BOOL *stop) {
+            [node removeFromParent];
+        }];
+    }
 }
 
 -(void)update:(CFTimeInterval)currentTime {
