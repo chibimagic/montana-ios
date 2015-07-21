@@ -27,7 +27,7 @@
     if (_rank == RankAce || _rank == Rank2) {
         return nil;
     }
-    Rank previousRank = _rank--;
+    Rank previousRank = _rank - 1;
     return [[Card alloc] initWithSuit:_suit rank:previousRank];
 }
 
@@ -35,7 +35,7 @@
     if (_rank == RankAce || _rank == RankKing) {
         return nil;
     }
-    Rank nextRank = _rank++;
+    Rank nextRank = _rank + 1;
     return [[Card alloc] initWithSuit:_suit rank:nextRank];
 }
 
