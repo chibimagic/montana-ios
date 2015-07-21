@@ -68,7 +68,9 @@
     for (NSUInteger column = [location column]; column < 13; column++) {
         Location *removalLocation = [[Location alloc] initWithRow:[location row] column:column];
         Card *card = [self removeCardAtLocation:removalLocation];
-        [cards addObject:card];
+        if (card) {
+            [cards addObject:card];
+        }
     }
     return cards;
 }
