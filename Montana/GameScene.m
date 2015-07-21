@@ -22,6 +22,7 @@ CGFloat const intercardSpacing = 5;
 @property CGSize cardSize;
 @property CGPoint playingAreaBottomLeft;
 @property SKLabelNode *redealsRemainingCountNode;
+@property CardNode *activeCardNode;
 
 @end
 
@@ -115,21 +116,21 @@ CGFloat const intercardSpacing = 5;
             if ([possibleLocations count] == 1) {
                 [self moveCardNode:touchedCardNode to:[possibleLocations objectAtIndex:0]];
             } else {
-                for (Location *possibleLocation in possibleLocations) {
-                    SKNode *placeholderNode = [self childNodeWithName:[possibleLocation description]];
-                    HighlightNode *highlightNode = [[HighlightNode alloc] initWithSize:_cardSize];
-                    [highlightNode setPosition:[placeholderNode position]];
-                    [self addChild:highlightNode];
-                }
+                _activeCardNode = touchedCardNode;
             }
         } else if ([touchedNode isKindOfClass:[PlaceholderNode class]]) {
             PlaceholderNode *touchedPlaceholderNode = (PlaceholderNode *)touchedNode;
-            NSArray *possibleCards = [_game possibleCardsForLocation:[touchedPlaceholderNode location]];
-            for (Card *possibleCard in possibleCards) {
-                SKNode *cardNode = [self childNodeWithName:[possibleCard description]];
-                HighlightNode *highlightNode = [[HighlightNode alloc] initWithSize:_cardSize];
-                [highlightNode setPosition:[cardNode position]];
-                [self addChild:highlightNode];
+            if (_activeCardNode) {
+                [self moveCardNode:_activeCardNode to:[touchedPlaceholderNode location]];
+                _activeCardNode = nil;
+            } else {
+                NSArray *possibleCards = [_game possibleCardsForLocation:[touchedPlaceholderNode location]];
+                for (Card *possibleCard in possibleCards) {
+                    SKNode *cardNode = [self childNodeWithName:[possibleCard description]];
+                    HighlightNode *highlightNode = [[HighlightNode alloc] initWithSize:_cardSize];
+                    [highlightNode setPosition:[cardNode position]];
+                    [self addChild:highlightNode];
+                }
             }
         } else if ([[touchedNode name] isEqualToString:@"Redeal"]) {
             [self redeal];
