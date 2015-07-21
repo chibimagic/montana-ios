@@ -53,6 +53,21 @@ CGFloat const intercardSpacing = 5;
     CGFloat playingAreaBottom = (screenSize.height - playingAreaHeight) / 2;
     _playingAreaBottomLeft = CGPointMake(playingAreaLeft, playingAreaBottom);
     
+    CGFloat middleLeftRight = [self frame].size.width/2;
+    CGFloat topMiddle = [self frame].size.height - (playingAreaBottom / 2);
+    CGPoint topMiddleCentered = CGPointMake(middleLeftRight, topMiddle);
+    SKShapeNode *redealBackground = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(50, 20) cornerRadius:5];
+    [redealBackground setPosition:topMiddleCentered];
+    [redealBackground setName:@"Redeal"];
+    [self addChild:redealBackground];
+    SKLabelNode *redealText = [SKLabelNode labelNodeWithText:@"Redeal"];
+    [redealText setFontName:@"Arial Bold"];
+    [redealText setFontSize:12];
+    [redealText setVerticalAlignmentMode:SKLabelVerticalAlignmentModeCenter];
+    [redealText setPosition:topMiddleCentered];
+    [redealText setName:@"Redeal"];
+    [self addChild:redealText];
+
     for (int row = 0; row < 4; row++) {
         for (int column = 0; column < 13; column++) {
             Location *location = [[Location alloc] initWithRow:row column:column];
