@@ -23,6 +23,7 @@
 - (instancetype)initWithSize:(CGSize)size {
     self = [super init];
     if (self) {
+        [self setName:@"HighlightNode"];
         CGPathRef path = [[self class] pathForSize:size];
         [self setPath:path];
         [self setFillColor:[UIColor yellowColor]];

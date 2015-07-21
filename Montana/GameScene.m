@@ -13,6 +13,7 @@
 #import "Game.h"
 #import "CardNode.h"
 #import "PlaceholderNode.h"
+#import "HighlightNode.h"
 
 CGFloat const intercardSpacing = 5;
 
@@ -68,23 +69,35 @@ CGFloat const intercardSpacing = 5;
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    /* Called when a touch begins */
-    
     for (UITouch *touch in touches) {
-        CGPoint location = [touch locationInNode:self];
-        
-        SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
-        
-        sprite.xScale = 0.5;
-        sprite.yScale = 0.5;
-        sprite.position = location;
-        
-        SKAction *action = [SKAction rotateByAngle:M_PI duration:1];
-        
-        [sprite runAction:[SKAction repeatActionForever:action]];
-        
-        [self addChild:sprite];
+        CGPoint touchPosition = [touch locationInNode:self];
+        SKNode *touchedNode = [self nodeAtPoint:touchPosition];
+        if ([touchedNode isKindOfClass:[CardNode class]]) {
+            CardNode *touchedCardNode = (CardNode *)touchedNode;
+            NSArray *possibleLocations = [_game possibleLocationsForCard:[touchedCardNode card]];
+            for (Location *possibleLocation in possibleLocations) {
+                SKNode *placeholderNode = [self childNodeWithName:[possibleLocation description]];
+                HighlightNode *highlightNode = [[HighlightNode alloc] initWithSize:_cardSize];
+                [highlightNode setPosition:[placeholderNode position]];
+                [self addChild:highlightNode];
+            }
+        } else if ([touchedNode isKindOfClass:[PlaceholderNode class]]) {
+            PlaceholderNode *touchedPlaceholderNode = (PlaceholderNode *)touchedNode;
+            NSArray *possibleCards = [_game possibleCardsForLocation:[touchedPlaceholderNode location]];
+            for (Card *possibleCard in possibleCards) {
+                SKNode *cardNode = [self childNodeWithName:[possibleCard description]];
+                HighlightNode *highlightNode = [[HighlightNode alloc] initWithSize:_cardSize];
+                [highlightNode setPosition:[cardNode position]];
+                [self addChild:highlightNode];
+            }
+        }
     }
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self enumerateChildNodesWithName:@"HighlightNode" usingBlock:^(SKNode *node, BOOL *stop) {
+        [node removeFromParent];
+    }];
 }
 
 -(void)update:(CFTimeInterval)currentTime {
