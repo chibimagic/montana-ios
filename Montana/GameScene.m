@@ -21,6 +21,7 @@ CGFloat const intercardSpacing = 5;
 
 @property CGSize cardSize;
 @property CGPoint playingAreaBottomLeft;
+@property SKLabelNode *redealsRemainingCountNode;
 
 @end
 
@@ -35,12 +36,12 @@ CGFloat const intercardSpacing = 5;
     [redealsRemainingTextLabel setPosition:textLabelPosition];
     [self addChild:redealsRemainingTextLabel];
     
-    SKLabelNode *redealsRemainingCountLabel = [SKLabelNode labelNodeWithText:[NSString stringWithFormat:@"%d", [_game redealsRemaining]]];
-    [redealsRemainingCountLabel setFontName:@"Arial Bold"];
-    [redealsRemainingCountLabel setFontSize:12];
-    CGPoint countLabelPosition = CGPointMake([self frame].size.width - 15, [self frame].size.height - 15);
-    [redealsRemainingCountLabel setPosition:countLabelPosition];
-    [self addChild:redealsRemainingCountLabel];
+    _redealsRemainingCountNode = [SKLabelNode labelNodeWithText:[NSString stringWithFormat:@"%d", [_game redealsRemaining]]];
+    [_redealsRemainingCountNode setFontName:@"Arial Bold"];
+    [_redealsRemainingCountNode setFontSize:12];
+    CGPoint countNodePosition = CGPointMake([self frame].size.width - 15, [self frame].size.height - 15);
+    [_redealsRemainingCountNode setPosition:countNodePosition];
+    [self addChild:_redealsRemainingCountNode];
     
     CGSize screenSize = [[UIScreen mainScreen] bounds].size;
     CGFloat cardWidthToHeightRatio = [CardNode widthToHeightRatio];
@@ -156,6 +157,7 @@ CGFloat const intercardSpacing = 5;
         }
     }
     [_game redeal];
+    [_redealsRemainingCountNode setText:[NSString stringWithFormat:@"%d", [_game redealsRemaining]]];
     for (int row = 0; row < 4; row++) {
         for (int column = 0; column < 13; column++) {
             Location *location = [[Location alloc] initWithRow:row column:column];
