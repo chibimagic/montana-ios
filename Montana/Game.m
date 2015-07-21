@@ -44,7 +44,7 @@
     for (int row = 0; row < 4; row++) {
         for (int column = 0; column < 13; column++) {
             Location *location = [[Location alloc] initWithRow:row column:column];
-            if ([[self possibleCardsForLocation:location] count] > 0) {
+            if ([[self availableCardsForLocation:location] count] > 0) {
                 return YES;
             }
         }
@@ -58,24 +58,26 @@
     [_board placeCard:card atLocation:location];
 }
 
-- (NSArray *)possibleLocationsForCard:(Card *)card {
-    NSArray *potentialLocations;
+- (NSArray *)potentialLocationsForCard:(Card *)card {
     if ([card rank] == Rank2) {
-        potentialLocations = @[
-                               [[Location alloc] initWithRow:0 column:0],
-                               [[Location alloc] initWithRow:1 column:0],
-                               [[Location alloc] initWithRow:2 column:0],
-                               [[Location alloc] initWithRow:3 column:0]
-                               ];
-    } else {
-        Card *precedingCard = [card precedingCard];
-        Location *location = [[_board locationOfCard:precedingCard] followingLocation];
-        if (location) {
-            potentialLocations = @[location];
-        } else {
-            potentialLocations = @[];
-        }
+        NSArray *firstColumn = @[
+                                 [[Location alloc] initWithRow:0 column:0],
+                                 [[Location alloc] initWithRow:1 column:0],
+                                 [[Location alloc] initWithRow:2 column:0],
+                                 [[Location alloc] initWithRow:3 column:0]
+                                 ];
+        return firstColumn;
     }
+    Card *precedingCard = [card precedingCard];
+    Location *location = [[_board locationOfCard:precedingCard] followingLocation];
+    if (!location) {
+        return @[];
+    }
+    return @[location];
+}
+
+- (NSArray *)availableLocationsForCard:(Card *)card {
+    NSArray *potentialLocations = [self potentialLocationsForCard:card];
     NSMutableArray *availableLocations = [NSMutableArray array];
     [potentialLocations enumerateObjectsUsingBlock:^(Location *location, NSUInteger idx, BOOL *stop) {
         if (![_board cardAtLocation:location]) {
@@ -85,7 +87,7 @@
     return availableLocations;
 }
 
-- (NSArray *)possibleCardsForLocation:(Location *)location {
+- (NSArray *)availableCardsForLocation:(Location *)location {
     if ([_board cardAtLocation:location]) {
         return @[];
     }

@@ -20,7 +20,8 @@
 - (void)redeal;
 - (BOOL)anyMovesPossible;
 - (void)moveCard:(Card *)card to:(Location *)location;
-- (NSArray *)possibleLocationsForCard:(Card *)card;
-- (NSArray *)possibleCardsForLocation:(Location *)location;
+- (NSArray *)potentialLocationsForCard:(Card *)card;
+- (NSArray *)availableLocationsForCard:(Card *)card;
+- (NSArray *)availableCardsForLocation:(Location *)location;
 
 @end

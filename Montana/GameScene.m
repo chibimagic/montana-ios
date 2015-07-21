@@ -96,7 +96,7 @@ CGFloat const intercardSpacing = 5;
     id object = [[_game board] cardAtLocation:location];
     if ([object isKindOfClass:[Card class]]) {
         node = [[CardNode alloc] initWithSize:_cardSize card:object location:location];
-    } else if ([[_game possibleCardsForLocation:location] count] >= 1) {
+    } else if ([[_game availableCardsForLocation:location] count] >= 1) {
         node = [[PlaceholderNode alloc] initNormalWithSize:_cardSize location:location];
     } else {
         node = [[PlaceholderNode alloc] initNoMovesWithSize:_cardSize location:location];
@@ -112,9 +112,9 @@ CGFloat const intercardSpacing = 5;
         SKNode *touchedNode = [self nodeAtPoint:touchPosition];
         if ([touchedNode isKindOfClass:[CardNode class]]) {
             CardNode *touchedCardNode = (CardNode *)touchedNode;
-            NSArray *possibleLocations = [_game possibleLocationsForCard:[touchedCardNode card]];
-            if ([possibleLocations count] == 1) {
-                [self moveCardNode:touchedCardNode to:[possibleLocations objectAtIndex:0]];
+            NSArray *availableLocations = [_game availableLocationsForCard:[touchedCardNode card]];
+            if ([availableLocations count] == 1) {
+                [self moveCardNode:touchedCardNode to:[availableLocations objectAtIndex:0]];
             } else {
                 _activeCardNode = touchedCardNode;
             }
@@ -124,9 +124,9 @@ CGFloat const intercardSpacing = 5;
                 [self moveCardNode:_activeCardNode to:[touchedPlaceholderNode location]];
                 _activeCardNode = nil;
             } else {
-                NSArray *possibleCards = [_game possibleCardsForLocation:[touchedPlaceholderNode location]];
-                for (Card *possibleCard in possibleCards) {
-                    SKNode *cardNode = [self childNodeWithName:[possibleCard description]];
+                NSArray *availableCards = [_game availableCardsForLocation:[touchedPlaceholderNode location]];
+                for (Card *availableCard in availableCards) {
+                    SKNode *cardNode = [self childNodeWithName:[availableCard description]];
                     HighlightNode *highlightNode = [[HighlightNode alloc] initWithSize:_cardSize];
                     [highlightNode setPosition:[cardNode position]];
                     [self addChild:highlightNode];
