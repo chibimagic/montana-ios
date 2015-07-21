@@ -58,7 +58,7 @@
             Location *location = [[Location alloc] initWithRow:row column:column];
             Card *card = [_board cardAtLocation:location];
             Rank expectedRank = [self expectedRankForLocation:location];
-            if ([card rank] != expectedRank) {
+            if (column < 12 && [card rank] != expectedRank) {
                 return NO;
             }
             Card *precedingCard = [_board cardAtLocation:[location precedingLocation]];
