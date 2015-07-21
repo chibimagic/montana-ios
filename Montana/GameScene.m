@@ -117,6 +117,8 @@ CGFloat const intercardSpacing = 5;
                 [highlightNode setPosition:[cardNode position]];
                 [self addChild:highlightNode];
             }
+        } else if ([[touchedNode name] isEqualToString:@"Redeal"]) {
+            [self redeal];
         }
     }
 }
@@ -139,6 +141,27 @@ CGFloat const intercardSpacing = 5;
     [cardNode setPosition:position];
 
     [self drawObjectForLocation:oldLocation];
+}
+
+- (void)redeal {
+    for (int row = 0; row < 4; row++) {
+        for (int column = 0; column < 13; column++) {
+            Location *location = [[Location alloc] initWithRow:row column:column];
+            Card *card = [[_game board] cardAtLocation:location];
+            if (card) {
+                [[self childNodeWithName:[card description]] removeFromParent];
+            } else {
+                [[self childNodeWithName:[location description]] removeFromParent];
+            }
+        }
+    }
+    [_game redeal];
+    for (int row = 0; row < 4; row++) {
+        for (int column = 0; column < 13; column++) {
+            Location *location = [[Location alloc] initWithRow:row column:column];
+            [self drawObjectForLocation:location];
+        }
+    }
 }
 
 -(void)update:(CFTimeInterval)currentTime {
