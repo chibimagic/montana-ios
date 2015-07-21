@@ -160,6 +160,9 @@ CGFloat const intercardSpacing = 5;
 }
 
 - (void)redeal {
+    if ([_game redealsRemaining] == 0) {
+        return;
+    }
     for (int row = 0; row < 4; row++) {
         for (int column = 0; column < 13; column++) {
             Location *location = [[Location alloc] initWithRow:row column:column];
