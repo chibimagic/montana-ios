@@ -83,11 +83,15 @@ CGFloat const intercardSpacing = 5;
         if ([touchedNode isKindOfClass:[CardNode class]]) {
             CardNode *touchedCardNode = (CardNode *)touchedNode;
             NSArray *possibleLocations = [_game possibleLocationsForCard:[touchedCardNode card]];
-            for (Location *possibleLocation in possibleLocations) {
-                SKNode *placeholderNode = [self childNodeWithName:[possibleLocation description]];
-                HighlightNode *highlightNode = [[HighlightNode alloc] initWithSize:_cardSize];
-                [highlightNode setPosition:[placeholderNode position]];
-                [self addChild:highlightNode];
+            if ([possibleLocations count] == 1) {
+                [self moveCardNode:touchedCardNode to:[possibleLocations objectAtIndex:0]];
+            } else {
+                for (Location *possibleLocation in possibleLocations) {
+                    SKNode *placeholderNode = [self childNodeWithName:[possibleLocation description]];
+                    HighlightNode *highlightNode = [[HighlightNode alloc] initWithSize:_cardSize];
+                    [highlightNode setPosition:[placeholderNode position]];
+                    [self addChild:highlightNode];
+                }
             }
         } else if ([touchedNode isKindOfClass:[PlaceholderNode class]]) {
             PlaceholderNode *touchedPlaceholderNode = (PlaceholderNode *)touchedNode;
@@ -106,6 +110,20 @@ CGFloat const intercardSpacing = 5;
     [self enumerateChildNodesWithName:@"HighlightNode" usingBlock:^(SKNode *node, BOOL *stop) {
         [node removeFromParent];
     }];
+}
+
+- (void)moveCardNode:(CardNode *)cardNode to:(Location *)location {
+    Card *card = [cardNode card];
+    Location *oldLocation = [[_game board] locationOfCard:card];
+    [_game moveCard:card to:location];
+
+    SKNode *placeholderNode = [self childNodeWithName:[location description]];
+    [placeholderNode removeFromParent];
+
+    CGPoint position = [self positionForLocation:location];
+    [cardNode setPosition:position];
+
+    [self drawObjectForLocation:oldLocation];
 }
 
 -(void)update:(CFTimeInterval)currentTime {
