@@ -29,22 +29,23 @@ CGFloat const intercardSpacing = 5;
 @implementation GameScene
 
 -(void)didMoveToView:(SKView *)view {
+    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+
     SKLabelNode *redealsRemainingTextLabel = [SKLabelNode labelNodeWithText:@"Redeals Remaining:"];
     [redealsRemainingTextLabel setFontName:@"Arial Bold"];
     [redealsRemainingTextLabel setFontSize:12];
     [redealsRemainingTextLabel setHorizontalAlignmentMode:SKLabelHorizontalAlignmentModeRight];
-    CGPoint textLabelPosition = CGPointMake([self frame].size.width - 20, [self frame].size.height - 15);
+    CGPoint textLabelPosition = CGPointMake(screenSize.width - 20, screenSize.height - 15);
     [redealsRemainingTextLabel setPosition:textLabelPosition];
     [self addChild:redealsRemainingTextLabel];
     
     _redealsRemainingCountNode = [SKLabelNode labelNodeWithText:[NSString stringWithFormat:@"%d", [_game redealsRemaining]]];
     [_redealsRemainingCountNode setFontName:@"Arial Bold"];
     [_redealsRemainingCountNode setFontSize:12];
-    CGPoint countNodePosition = CGPointMake([self frame].size.width - 15, [self frame].size.height - 15);
+    CGPoint countNodePosition = CGPointMake(screenSize.width - 15, screenSize.height - 15);
     [_redealsRemainingCountNode setPosition:countNodePosition];
     [self addChild:_redealsRemainingCountNode];
     
-    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
     CGFloat cardWidthToHeightRatio = [CardNode widthToHeightRatio];
     CGFloat cardWidth = (screenSize.width - (14 * intercardSpacing)) / 13;
     CGFloat cardHeight = cardWidth / cardWidthToHeightRatio;
@@ -55,8 +56,8 @@ CGFloat const intercardSpacing = 5;
     CGFloat playingAreaBottom = (screenSize.height - playingAreaHeight) / 2;
     _playingAreaBottomLeft = CGPointMake(playingAreaLeft, playingAreaBottom);
     
-    CGFloat middleLeftRight = [self frame].size.width/2;
-    CGFloat topMiddle = [self frame].size.height - (playingAreaBottom / 2);
+    CGFloat middleLeftRight = screenSize.width/2;
+    CGFloat topMiddle = screenSize.height - (playingAreaBottom / 2);
     CGPoint topMiddleCentered = CGPointMake(middleLeftRight, topMiddle);
     SKShapeNode *redealBackground = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(50, 20) cornerRadius:5];
     [redealBackground setPosition:topMiddleCentered];
@@ -70,7 +71,7 @@ CGFloat const intercardSpacing = 5;
     [redealText setName:@"Redeal"];
     [self addChild:redealText];
 
-    CGPoint topLeft = CGPointMake(50, [self frame].size.height - 15);
+    CGPoint topLeft = CGPointMake(50, screenSize.height - 15);
     SKShapeNode *newGameBackground = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(70, 20) cornerRadius:5];
     [newGameBackground setPosition:topLeft];
     [newGameBackground setName:@"New Game"];
