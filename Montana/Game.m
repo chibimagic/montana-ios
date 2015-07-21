@@ -133,7 +133,8 @@
             Location *location = [[Location alloc] initWithRow:row column:column];
             Card *card = [_board cardAtLocation:location];
             Rank expectedRank = [self expectedRankForLocation:location];
-            if (!card || [card rank] != expectedRank) {
+            Card *precedingCard = [_board cardAtLocation:[location precedingLocation]];
+            if (!card || [card rank] != expectedRank || (column > 0 && [card suit] != [precedingCard suit])) {
                 NSArray *rowRemovedCards = [_board removeCardAndFollowingCardsAtLocation:location];
                 [allRemovedCards addObjectsFromArray:rowRemovedCards];
                 break;
