@@ -46,10 +46,10 @@
     return NO;
 }
 
-- (void)moveCardFrom:(Location *)fromLocation to:(Location *)toLocation {
-    Card *card = [_board cardAtLocation:fromLocation];
+- (void)moveCard:(Card *)card to:(Location *)location {
+    Location *fromLocation = [_board locationOfCard:card];
     [_board removeCardAtLocation:fromLocation];
-    [_board placeCard:card atLocation:toLocation];
+    [_board placeCard:card atLocation:location];
 }
 
 - (NSArray *)possibleLocationsForCard:(Card *)card {

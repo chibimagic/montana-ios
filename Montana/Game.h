@@ -19,7 +19,7 @@
 - (instancetype)init;
 - (void)redeal;
 - (BOOL)anyMovesPossible;
-- (void)moveCardFrom:(Location *)fromLocation to:(Location *)toLocation;
+- (void)moveCard:(Card *)card to:(Location *)location;
 - (NSArray *)possibleLocationsForCard:(Card *)card;
 - (NSArray *)possibleCardsForLocation:(Location *)location;
 
