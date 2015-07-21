@@ -117,6 +117,15 @@ CGFloat const intercardSpacing = 5;
                 [self moveCardNode:touchedCardNode to:[availableLocations objectAtIndex:0]];
             } else if ([availableLocations count] > 1) {
                 _activeCardNode = touchedCardNode;
+            } else {
+                NSArray *potentialLocations = [_game potentialLocationsForCard:[touchedCardNode card]];
+                for (Location *potentialLocation in potentialLocations) {
+                    Card *blockingCard = [[_game board] cardAtLocation:potentialLocation];
+                    SKNode *blockingCardNode = [self childNodeWithName:[blockingCard description]];
+                    HighlightNode *highlightNode = [[HighlightNode alloc] initWithSize:_cardSize];
+                    [highlightNode setPosition:[blockingCardNode position]];
+                    [self addChild:highlightNode];
+                }
             }
         } else if ([touchedNode isKindOfClass:[PlaceholderNode class]]) {
             PlaceholderNode *touchedPlaceholderNode = (PlaceholderNode *)touchedNode;
