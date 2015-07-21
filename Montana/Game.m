@@ -28,6 +28,12 @@
 
 - (void)redeal {
     Deck *deck = [self removeIncorrectCards];
+    [deck addCards:@[
+                     [[Card alloc] initWithSuit:SuitClub rank:RankAce],
+                     [[Card alloc] initWithSuit:SuitDiamond rank:RankAce],
+                     [[Card alloc] initWithSuit:SuitHeart rank:RankAce],
+                     [[Card alloc] initWithSuit:SuitSpade rank:RankAce]
+                     ]];
     [deck shuffle];
     [self placeCards:deck];
     [self removeAces];

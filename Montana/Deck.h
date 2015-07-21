@@ -15,6 +15,7 @@
 
 - (instancetype)initForNewGame;
 - (instancetype)initWithCards:(NSArray *)cards;
+- (void)addCards:(NSArray *)cards;
 - (Card *)drawCard;
 - (void)shuffle;
 

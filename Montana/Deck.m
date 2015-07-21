@@ -45,6 +45,10 @@
     return self;
 }
 
+- (void)addCards:(NSArray *)cards {
+    [_cards addObjectsFromArray:cards];
+}
+
 - (Card *)drawCard {
     Card *card = [_cards lastObject];
     [_cards removeLastObject];
