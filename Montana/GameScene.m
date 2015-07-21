@@ -56,16 +56,24 @@ CGFloat const intercardSpacing = 5;
     for (int row = 0; row < 4; row++) {
         for (int column = 0; column < 13; column++) {
             Location *location = [[Location alloc] initWithRow:row column:column];
-            id object = [[_game board] cardAtLocation:location];
-            if ([object isKindOfClass:[Card class]]) {
-                [self displayCard:object atLocation:location];
-            } else if ([[_game possibleCardsForLocation:location] count] >= 1) {
-                [self displayBlankSpaceAtLocation:location];
-            } else {
-                [self displayNoMoveSpaceAtLocation:location];
-            }
+            [self drawObjectForLocation:location];
         }
     }
+}
+
+-(void)drawObjectForLocation:(Location *)location {
+    SKNode *node;
+    id object = [[_game board] cardAtLocation:location];
+    if ([object isKindOfClass:[Card class]]) {
+        node = [[CardNode alloc] initWithSize:_cardSize card:object location:location];
+    } else if ([[_game possibleCardsForLocation:location] count] >= 1) {
+        node = [[PlaceholderNode alloc] initNormalWithSize:_cardSize location:location];
+    } else {
+        node = [[PlaceholderNode alloc] initNoMovesWithSize:_cardSize location:location];
+    }
+    CGPoint position = [self positionForLocation:location];
+    [node setPosition:position];
+    [self addChild:node];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -104,31 +112,10 @@ CGFloat const intercardSpacing = 5;
     /* Called before each frame is rendered */
 }
 
-- (void)displayCard:(Card *)card atLocation:(Location *)location {
-    CGPoint position = [self positionForLocation:location];
-    CardNode *cardNode = [[CardNode alloc] initWithSize:_cardSize card:card location:location];
-    [cardNode setPosition:position];
-    [self addChild:cardNode];
-}
-
 - (CGPoint)positionForLocation:(Location *)location {
     CGFloat x = _playingAreaBottomLeft.x + ([location column] * _cardSize.width) + ([location column] * intercardSpacing);
     CGFloat y = _playingAreaBottomLeft.y + ((3 - [location row]) * _cardSize.height) + ((3 - [location row]) * intercardSpacing);
     return CGPointMake(x, y);
-}
-
-- (void)displayBlankSpaceAtLocation:(Location *)location {
-    CGPoint position = [self positionForLocation:location];
-    PlaceholderNode *placeholderNode = [[PlaceholderNode alloc] initNormalWithSize:_cardSize location:location];
-    [placeholderNode setPosition:position];
-    [self addChild:placeholderNode];
-}
-
-- (void)displayNoMoveSpaceAtLocation:(Location *)location {
-    CGPoint position = [self positionForLocation:location];
-    PlaceholderNode *noMoveNode = [[PlaceholderNode alloc] initNoMovesWithSize:_cardSize location:location];
-    [noMoveNode setPosition:position];
-    [self addChild:noMoveNode];
 }
 
 @end
