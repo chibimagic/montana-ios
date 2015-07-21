@@ -124,7 +124,7 @@
 }
 
 - (Rank)expectedRankForLocation:(Location *)location {
-    return (Rank)[location column] - 1;
+    return (Rank)([location column] + 1);
 }
 
 - (void)placeCards:(Deck *)deck {
