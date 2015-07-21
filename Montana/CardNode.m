@@ -53,6 +53,7 @@
     self = [super init];
     if (self) {
         SKTexture *texture = [[self class] textureForCard:card];
+        [self setName:[card description]];
         [self setTexture:texture];
         [self setAnchorPoint:CGPointMake(0, 0)];
         [self setSize:size];

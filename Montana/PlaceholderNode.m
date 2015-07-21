@@ -7,6 +7,7 @@
 //
 
 #import "PlaceholderNode.h"
+#import "Location.h"
 
 @implementation PlaceholderNode
 
@@ -36,6 +37,7 @@
         _location = location;
         CGPathRef path = [[[self class] pathForNormalPlaceholderOfSize:size] CGPath];
         [self setPath:path];
+        [self setName:[location description]];
     }
     return self;
 }
@@ -48,6 +50,7 @@
         _location = location;
         CGPathRef path = [[[self class] pathForNoMovesPlaceholderOfSize:size] CGPath];
         [self setPath:path];
+        [self setName:[location description]];
     }
     return self;
 }
