@@ -69,6 +69,19 @@ CGFloat const intercardSpacing = 5;
     [redealText setName:@"Redeal"];
     [self addChild:redealText];
 
+    CGPoint topLeft = CGPointMake(50, [self frame].size.height - 15);
+    SKShapeNode *newGameBackground = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(70, 20) cornerRadius:5];
+    [newGameBackground setPosition:topLeft];
+    [newGameBackground setName:@"New Game"];
+    [self addChild:newGameBackground];
+    SKLabelNode *newGameText = [SKLabelNode labelNodeWithText:@"New Game"];
+    [newGameText setFontName:@"Arial Bold"];
+    [newGameText setFontSize:12];
+    [newGameText setVerticalAlignmentMode:SKLabelVerticalAlignmentModeCenter];
+    [newGameText setPosition:topLeft];
+    [newGameText setName:@"New Game"];
+    [self addChild:newGameText];
+
     for (int row = 0; row < 4; row++) {
         for (int column = 0; column < 13; column++) {
             Location *location = [[Location alloc] initWithRow:row column:column];
@@ -120,6 +133,8 @@ CGFloat const intercardSpacing = 5;
             }
         } else if ([[touchedNode name] isEqualToString:@"Redeal"]) {
             [self redeal];
+        } else if ([[touchedNode name] isEqualToString:@"New Game"]) {
+            [self newGame];
         }
     }
 }
@@ -166,8 +181,33 @@ CGFloat const intercardSpacing = 5;
     }
     if ([_game redealsRemaining] == 0) {
         [self enumerateChildNodesWithName:@"Redeal" usingBlock:^(SKNode *node, BOOL *stop) {
-            [node removeFromParent];
+            [node setHidden:YES];
         }];
+    }
+}
+
+- (void)newGame {
+    for (int row = 0; row < 4; row++) {
+        for (int column = 0; column < 13; column++) {
+            Location *location = [[Location alloc] initWithRow:row column:column];
+            Card *card = [[_game board] cardAtLocation:location];
+            if (card) {
+                [[self childNodeWithName:[card description]] removeFromParent];
+            } else {
+                [[self childNodeWithName:[location description]] removeFromParent];
+            }
+        }
+    }
+    _game = [[Game alloc] init];
+    [self enumerateChildNodesWithName:@"Redeal" usingBlock:^(SKNode *node, BOOL *stop) {
+        [node setHidden:NO];
+    }];
+    [_redealsRemainingCountNode setText:[NSString stringWithFormat:@"%d", [_game redealsRemaining]]];
+    for (int row = 0; row < 4; row++) {
+        for (int column = 0; column < 13; column++) {
+            Location *location = [[Location alloc] initWithRow:row column:column];
+            [self drawObjectForLocation:location];
+        }
     }
 }
 
