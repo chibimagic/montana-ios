@@ -52,6 +52,24 @@
     return NO;
 }
 
+- (BOOL)gameWon {
+    for (int row = 0; row < 4; row++) {
+        for (int column = 0; column < 13; column++) {
+            Location *location = [[Location alloc] initWithRow:row column:column];
+            Card *card = [_board cardAtLocation:location];
+            Rank expectedRank = [self expectedRankForLocation:location];
+            if ([card rank] != expectedRank) {
+                return NO;
+            }
+            Card *precedingCard = [_board cardAtLocation:[location precedingLocation]];
+            if (column > 0 && [card suit] != [precedingCard suit]) {
+                return NO;
+            }
+        }
+    }
+    return YES;
+}
+
 - (void)moveCard:(Card *)card to:(Location *)location {
     Location *fromLocation = [_board locationOfCard:card];
     [_board removeCardAtLocation:fromLocation];
