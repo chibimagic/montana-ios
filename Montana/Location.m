@@ -19,6 +19,22 @@
     return self;
 }
 
+- (Location *)precedingLocation {
+    if (_column == 0) {
+        return nil;
+    }
+    NSUInteger previousColumn = _column - 1;
+    return [[Location alloc] initWithRow:_row column:previousColumn];
+}
+
+- (Location *)followingLocation {
+    if (_column == 12) {
+        return nil;
+    }
+    NSUInteger nextColumn = _column + 1;
+    return [[Location alloc] initWithRow:_row column:nextColumn];
+}
+
 - (NSString *)description {
     return [NSString stringWithFormat:@"row %d, column %d", _row, _column];
 }

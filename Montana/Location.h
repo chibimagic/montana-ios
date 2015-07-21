@@ -14,5 +14,7 @@
 @property NSUInteger column;
 
 - (instancetype)initWithRow:(NSUInteger)row column:(NSUInteger)column;
+- (Location *)precedingLocation;
+- (Location *)followingLocation;
 
 @end
