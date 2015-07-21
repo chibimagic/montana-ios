@@ -115,7 +115,7 @@ CGFloat const intercardSpacing = 5;
             NSArray *availableLocations = [_game availableLocationsForCard:[touchedCardNode card]];
             if ([availableLocations count] == 1) {
                 [self moveCardNode:touchedCardNode to:[availableLocations objectAtIndex:0]];
-            } else {
+            } else if ([availableLocations count] > 1) {
                 _activeCardNode = touchedCardNode;
             }
         } else if ([touchedNode isKindOfClass:[PlaceholderNode class]]) {
