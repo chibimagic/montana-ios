@@ -168,6 +168,11 @@ CGFloat const intercardSpacing = 5;
     [cardNode setPosition:position];
 
     [self drawObjectForLocation:oldLocation];
+    if ([_game gameWon]) {
+        [self gameWon];
+    } else if (![_game anyMovesPossible] && [_game redealsRemaining] == 0) {
+        [self gameLost];
+    }
 }
 
 - (void)redeal {
@@ -198,6 +203,11 @@ CGFloat const intercardSpacing = 5;
             [node setHidden:YES];
         }];
     }
+    if ([_game gameWon]) {
+        [self gameWon];
+    } else if (![_game anyMovesPossible] && [_game redealsRemaining] == 0) {
+        [self gameLost];
+    }
 }
 
 - (void)newGame {
@@ -223,6 +233,14 @@ CGFloat const intercardSpacing = 5;
             [self drawObjectForLocation:location];
         }
     }
+}
+
+- (void)gameWon {
+    // Display a graphic?
+}
+
+- (void)gameLost {
+    // Display a graphic?
 }
 
 -(void)update:(CFTimeInterval)currentTime {
