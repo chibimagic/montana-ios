@@ -118,12 +118,17 @@
                           ];
         return twos;
     }
-    Location *preceedingLocation = [location precedingLocation];
-    Card *card = [[_board cardAtLocation:preceedingLocation] followingCard];
-    if (!card) {
-        return @[];
-    }
-    return @[card];
+    Location *precedingLocation = [location precedingLocation];
+    Card *precedingCard = [_board cardAtLocation:precedingLocation];
+    NSArray *precedingCards = precedingCard ? @[precedingCard] : [self availableCardsForLocation:precedingLocation];
+    NSMutableArray *availableCards = [NSMutableArray array];
+    [precedingCards enumerateObjectsUsingBlock:^(Card *precedingCard, NSUInteger idx, BOOL *stop) {
+        Card *availableCard = [precedingCard followingCard];
+        if (availableCard) {
+            [availableCards addObject:availableCard];
+        }
+    }];
+    return availableCards;
 }
 
 - (Deck *)removeIncorrectCards {
