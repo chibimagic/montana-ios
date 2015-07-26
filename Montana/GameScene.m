@@ -156,18 +156,14 @@ CGFloat const intercardSpacing = 5;
     [self clearBoard];
     [_game moveCard:card to:location];
     [self drawBoard];
-
-    if ([_game gameWon]) {
-        [self gameWon];
-    } else if (![_game anyMovesPossible] && [_game redealsRemaining] == 0) {
-        [self gameLost];
-    }
+    [self checkDisplayReaction];
 }
 
 - (void)redeal {
     if ([_game redealsRemaining] == 0) {
         return;
     }
+    [[self childNodeWithName:@"Reaction"] removeFromParent];
     [self clearBoard];
     [_game redeal];
     [_redealsRemainingCountNode setText:[NSString stringWithFormat:@"%d", [_game redealsRemaining]]];
@@ -177,14 +173,11 @@ CGFloat const intercardSpacing = 5;
             [node setHidden:YES];
         }];
     }
-    if ([_game gameWon]) {
-        [self gameWon];
-    } else if (![_game anyMovesPossible] && [_game redealsRemaining] == 0) {
-        [self gameLost];
-    }
+    [self checkDisplayReaction];
 }
 
 - (void)newGame {
+    [[self childNodeWithName:@"Reaction"] removeFromParent];
     [self clearBoard];
     _game = [[Game alloc] init];
     [self enumerateChildNodesWithName:@"Redeal" usingBlock:^(SKNode *node, BOOL *stop) {
@@ -217,12 +210,26 @@ CGFloat const intercardSpacing = 5;
     }
 }
 
-- (void)gameWon {
-    // Display a graphic?
-}
-
-- (void)gameLost {
-    // Display a graphic?
+- (void)checkDisplayReaction {
+    SKLabelNode *reactionNode;
+    if ([_game gameWon]) {
+        reactionNode = [SKLabelNode labelNodeWithText:@"😃"];
+    } else if (![_game anyMovesPossible]) {
+        if ([_game redealsRemaining] > 0) {
+            reactionNode = [SKLabelNode labelNodeWithText:@"😐"];
+        } else {
+            reactionNode = [SKLabelNode labelNodeWithText:@"😢"];
+        }
+    } else {
+        return;
+    }
+    [reactionNode setName:@"Reaction"];
+    [reactionNode setFontSize:50];
+    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+    CGPoint screenCenter = CGPointMake(screenSize.width/2, screenSize.height/2);
+    [reactionNode setPosition:screenCenter];
+    [reactionNode setZPosition:10];
+    [self addChild:reactionNode];
 }
 
 -(void)update:(CFTimeInterval)currentTime {
