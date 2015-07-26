@@ -84,12 +84,7 @@ CGFloat const intercardSpacing = 5;
     [newGameText setName:@"New Game"];
     [self addChild:newGameText];
 
-    for (int row = 0; row < 4; row++) {
-        for (int column = 0; column < 13; column++) {
-            Location *location = [[Location alloc] initWithRow:row column:column];
-            [self drawObjectForLocation:location];
-        }
-    }
+    [self drawBoard];
 }
 
 -(void)drawObjectForLocation:(Location *)location {
@@ -158,16 +153,10 @@ CGFloat const intercardSpacing = 5;
 
 - (void)moveCardNode:(CardNode *)cardNode to:(Location *)location {
     Card *card = [cardNode card];
-    Location *oldLocation = [[_game board] locationOfCard:card];
+    [self clearBoard];
     [_game moveCard:card to:location];
+    [self drawBoard];
 
-    SKNode *placeholderNode = [self childNodeWithName:[location description]];
-    [placeholderNode removeFromParent];
-
-    CGPoint position = [self positionForLocation:location];
-    [cardNode setPosition:position];
-
-    [self drawObjectForLocation:oldLocation];
     if ([_game gameWon]) {
         [self gameWon];
     } else if (![_game anyMovesPossible] && [_game redealsRemaining] == 0) {
@@ -179,25 +168,10 @@ CGFloat const intercardSpacing = 5;
     if ([_game redealsRemaining] == 0) {
         return;
     }
-    for (int row = 0; row < 4; row++) {
-        for (int column = 0; column < 13; column++) {
-            Location *location = [[Location alloc] initWithRow:row column:column];
-            Card *card = [[_game board] cardAtLocation:location];
-            if (card) {
-                [[self childNodeWithName:[card description]] removeFromParent];
-            } else {
-                [[self childNodeWithName:[location description]] removeFromParent];
-            }
-        }
-    }
+    [self clearBoard];
     [_game redeal];
     [_redealsRemainingCountNode setText:[NSString stringWithFormat:@"%d", [_game redealsRemaining]]];
-    for (int row = 0; row < 4; row++) {
-        for (int column = 0; column < 13; column++) {
-            Location *location = [[Location alloc] initWithRow:row column:column];
-            [self drawObjectForLocation:location];
-        }
-    }
+    [self drawBoard];
     if ([_game redealsRemaining] == 0) {
         [self enumerateChildNodesWithName:@"Redeal" usingBlock:^(SKNode *node, BOOL *stop) {
             [node setHidden:YES];
@@ -211,6 +185,16 @@ CGFloat const intercardSpacing = 5;
 }
 
 - (void)newGame {
+    [self clearBoard];
+    _game = [[Game alloc] init];
+    [self enumerateChildNodesWithName:@"Redeal" usingBlock:^(SKNode *node, BOOL *stop) {
+        [node setHidden:NO];
+    }];
+    [_redealsRemainingCountNode setText:[NSString stringWithFormat:@"%d", [_game redealsRemaining]]];
+    [self drawBoard];
+}
+
+- (void)clearBoard {
     for (int row = 0; row < 4; row++) {
         for (int column = 0; column < 13; column++) {
             Location *location = [[Location alloc] initWithRow:row column:column];
@@ -222,11 +206,9 @@ CGFloat const intercardSpacing = 5;
             }
         }
     }
-    _game = [[Game alloc] init];
-    [self enumerateChildNodesWithName:@"Redeal" usingBlock:^(SKNode *node, BOOL *stop) {
-        [node setHidden:NO];
-    }];
-    [_redealsRemainingCountNode setText:[NSString stringWithFormat:@"%d", [_game redealsRemaining]]];
+}
+
+- (void)drawBoard {
     for (int row = 0; row < 4; row++) {
         for (int column = 0; column < 13; column++) {
             Location *location = [[Location alloc] initWithRow:row column:column];
