@@ -57,8 +57,15 @@
         for (int column = 0; column < 13; column++) {
             Location *location = [[Location alloc] initWithRow:row column:column];
             Card *card = [_board cardAtLocation:location];
+            if (column == 12) {
+                if (card) {
+                    return NO;
+                } else {
+                    continue;
+                }
+            }
             Rank expectedRank = [self expectedRankForLocation:location];
-            if (column < 12 && [card rank] != expectedRank) {
+            if ([card rank] != expectedRank) {
                 return NO;
             }
             Card *precedingCard = [_board cardAtLocation:[location precedingLocation]];
